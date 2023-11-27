@@ -95,7 +95,7 @@ proc http
 	"reportUri" = "/reports/reports/&rep_id"
     "layoutType" = "entireSection" 
     "selectionType" = "perSection" 
-    "size" = "1280x720"
+    "size" = "1920x1080"
 	"refresh" = "&REFRESH"
 	"renderLimit" = "-1"
  )
