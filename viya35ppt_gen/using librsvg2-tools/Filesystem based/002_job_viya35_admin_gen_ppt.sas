@@ -121,7 +121,6 @@
 
 /***************************************************************************************************/
 %macro transform_image(filename,basefilename);
- 	/*filename timg pipe "inkscape -f &filename -e &save_rootdir_tmp/&basefilename..png";*/
     filename timg pipe "rsvg-convert -a &filename > &save_rootdir_tmp/&basefilename..png";
 	data _null_;
 		infile timg;
@@ -191,7 +190,6 @@
 	ods powerpoint close;
 
 	/* Copy the powerpoint file to the target location in the content */
-	%put Dbg: &=pptxName;
 	filename tgtdir filesrvc folderPath="&CONTENT_DIR/&user" name="&pptxName";
 	%mp_binarycopy(inloc="&SAVE_ROOTDIR/tmp/tmp_report_ppt.pptx", outref=tgtdir);
 %mend generate_ppt_file;
@@ -214,7 +212,7 @@ Filename filelist pipe "find &SAVE_ROOTDIR -type f -mmin -60 -name '*.svg'";
 data image_list;                                        
      Infile filelist truncover;
      Input filename $512.;
-	 length user $ 50 report_id $ 50 job_id $ 50 image_filename $ 100;
+	 length user $ 50 report_id $ 50 job_id $ 50 image_filename $ 200;
 	 user=scan(filename,3,'/');
 	 report_id=scan(filename,4,'/');
 	 job_id=scan(filename,5,'/');
@@ -301,7 +299,7 @@ proc sql;
 quit;
 
 proc sort data=loop_ppt_table;
-	by ordinal_images;
+	by user report_id ordinal_images;
 run;
 
 * *******************************************************************************************************;
