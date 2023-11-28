@@ -142,13 +142,16 @@ quit;
 libname jobref base "&SAVE_ROOTDIR";
 
 /* Add job with characterisitcs to the job_ref file */
-data jobref.job_ref;
+
+data job_ref_tmp;
   	length report_id $ 50 user_id $ 128 job_id $ 50;
 	report_id = "&rep_id";
   	user_id="&user_id";
   	job_id="&jobid";
 	jobdt=input(substr("$jobtime",1,23), YMDDTTM23.);
 run;
+
+proc append base=jobref.job_ref data=job_ref_tmp force;
 
 * ***************************************************************************************;
 * ***************************************************************************************;
