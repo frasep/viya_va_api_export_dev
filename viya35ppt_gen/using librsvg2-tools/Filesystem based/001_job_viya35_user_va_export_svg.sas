@@ -4,6 +4,7 @@
 %let USER_ID=&sysuserid; /* Get calling user id */
 %let SAVE_ROOTDIR=/tmp/svg_va_tmp; /* Root directory used to create produced files */
 %let REFRESH=true; /* specifies whether or not we refresh the report or use cache instead */
+%let DEFINITION=1920x1080;
 
 /*****************************************************************************************************************/
 /* Get the base_uri to make all API calls */
@@ -97,7 +98,7 @@ proc http
 	"reportUri" = "/reports/reports/&rep_id"
     "layoutType" = "entireSection" 
     "selectionType" = "perSection" 
-    "size" = "2560x1440"
+    "size" = "&DEFINITION"
 	"refresh" = "&REFRESH"
 	"renderLimit" = "-1"
  )
