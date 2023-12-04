@@ -34,6 +34,7 @@ quit;
 * **************************************************************************************;
 * *Get the id of the report state based on report name (only for the user requesting it) 
 * **************************************************************************************;
+/* NOTE : Report state is saved when exiting the report in viewer mode */
 
 FILENAME rptFile TEMP ENCODING='UTF-8';
 
@@ -50,9 +51,9 @@ quit;
 
 %put &state_id;
 
-/* NOTE : Report state is saved when exiting the report in viewer mode */
+
 * **************************************************************************************;
-* *Get the id of the report state based on report name (only for the user requesting it) 
+* *Get the content of the report state based on report name (only for the user requesting it) 
 * **************************************************************************************;
 FILENAME repJson "/home/frasep/reportContent.json" ENCODING='UTF-8' ;
 
@@ -63,9 +64,11 @@ PROC HTTP METHOD = "GET" oauth_bearer=sas_services OUT = repJson
 	debug level=0;
 RUN;
 
-* **************************************************************************************;
-/* JSON body for parameters to change data source of a specific report and saving it to specific folder */
-/* New report saved in /public as RetailInsightNew */
+libname repJson json;
+
+proc sql noprint;
+  create table list_datasrc as select distinct server,library,table from repJson.DATASOURCES_CASRESOURCE;
+quit;
 
 FILENAME json_in "/home/frasep/reportContentTransform.json" ENCODING='UTF-8' ;
 
@@ -77,25 +80,42 @@ data _null_;
       '		"name": "Temp_report",'/
       '		"description": "TEST report transform"'/
       '},'/
-	  '"dataSources": ['/
-      '{'/
-	  '     "namePattern": "serverLibraryTable",'/
-      '     "purpose": "original",'/
-      '     "server": "cas-shared-default",'/
-      '     "library": "CASUSER",'/
-      '     "table": "CARS"'/
-      ' },'/
-      ' {'/
-	  '     "namePattern": "serverLibraryTable",'/
-      '     "purpose": "replacement",'/
-      '     "server": "cas-shared-default",'/
-      '     "library": "CASUSER(frasep)",'/
-	  '     "table": "CARS"'/
-      ' }'/
-	  '],'/
-	  '"reportContent": ';
+	  '"dataSources": [';
 run;
 
+
+
+data _null_;
+	set list_datasrc;
+	file json_in mod;
+
+	put '{'/
+		'"namePattern": "serverLibraryTable",'/
+    	'"purpose": "original",';
+	line=cats('"server": "', server,'",');
+    put line;
+    put	'"library": "CASUSER",';
+	line=cats('"table": "',table,'"');
+	put line;
+    put	' },'/
+      	' {'/
+	  	'"namePattern": "serverLibraryTable",'/
+      	'"purpose": "replacement",';
+	line=cats('"server": "',server,'",');
+	put line;
+	line=cats('"library": "CASUSER(', "&sysuserid",')",');
+	put line;
+    line=cats('"table": "',table,'"');  	
+    put line;
+    put  '}';
+	if _n_ <n then put ',';
+run;
+
+data _null_;
+	file json_in mod;
+	put '],'/
+	'"reportContent": ';
+run;
 
 data _null_;
     infile repJson;
@@ -109,7 +129,8 @@ data _null_;
 	put  '}';
 run;
 
-%let REST_QUERY_URI=&BASE_URI/reportTransforms/dataMappedReports;
+
+%let REST_QUERY_URI=&BASE_URI/reportTransforms/dataMappedReports?validate=false%str(&)saveResult=true;
 
 FILENAME repFinal "/home/frasep/reportContentFinal.json" ENCODING='UTF-8' ;
 
@@ -121,6 +142,14 @@ PROC HTTP METHOD = "POST" oauth_bearer=sas_services OUT = repFinal IN = json_in
 		debug level=0;
 RUN;
 
+LIBNAME repFinal json;
+
+proc sql noprint;
+  select resultReportName into :rtmp_id trimmed from repFinal.root;
+quit;
+
+%put &rtmp_id;
+
 * **************************************************************************************;
 * * Generate images for a given report state 
 * **************************************************************************************;
@@ -131,20 +160,19 @@ proc http
   url="&BASE_URI/reportImages/jobs"
   oauth_bearer=sas_services
   query =(
+	"reportUri" = "/reports/reports/&rtmp_id"
     "layoutType" = "entireSection" 
     "selectionType" = "perSection" 
     "size" = "1920x1080"
 	"refresh" = "true"
  )
-  in=repFinal
   out=resp
   verbose
   ;
   headers
     "Accept" = "application/vnd.sas.report.images.job+json"
-    "Content-Type" = "application/vnd.sas.report.content+json"
   ;
-  debug level=0;
+  debug level=3;
 run;
 %put NOTE: &=SYS_PROCHTTP_STATUS_CODE;
 %put NOTE: &=SYS_PROCHTTP_STATUS_PHRASE;
@@ -338,3 +366,99 @@ data _null_;
 run;
 
 %inc getimg / source2;
+
+filename resp temp;
+proc http
+  method='DELETE' 
+  url="&BASE_URI/reports/reports/&rtmp_id"
+  oauth_bearer=sas_services
+  out=resp
+  verbose
+  ;
+  headers
+    "Accept" = "application/vnd.sas.error+json"
+  ;
+  debug level=3;
+run;
+
+
+
+
+
+
+
+/*
+* **************************************************************************************;
+* * Get the myfolder uri;
+
+FILENAME resp temp ENCODING='UTF-8' ;
+
+PROC HTTP METHOD = "GET" oauth_bearer=sas_services OUT = resp IN = json_in
+      URL = "&BASE_URI/folders/folders/@myFolder";
+	debug level=3;
+RUN;
+LIBNAME resp json;
+
+proc sql noprint;
+  select parentFolderUri into :pfold_id trimmed from resp.root;
+quit;
+
+%put &pfold_id;
+
+* **************************************************************************************;
+* * Create a new empty temporary report in my folder (/Users/frasep, not in My folder subdir);
+
+FILENAME json_in "/home/frasep/createReport.json" ENCODING='UTF-8' ;
+
+data _null_;
+   file json_in;
+   input; 
+   put _infile_;
+   datalines4;
+{
+	"name":"Temp_report",
+	"description":"Temporary report to delete"
+}
+;;;;
+
+FILENAME resp temp ENCODING='UTF-8' ;
+%let REST_QUERY_URI=&BASE_URI/reports/reports?parentFolderUri=&pfold_id;
+
+PROC HTTP METHOD = "POST" oauth_bearer=sas_services OUT = resp IN = json_in
+      URL = "&REST_QUERY_URI";
+      HEADERS
+		"Accept" = "application/vnd.sas.report+json"
+		"Content-Type" = "application/vnd.sas.report+json";
+	debug level=3;
+RUN;
+
+LIBNAME resp json;
+
+proc sql noprint;
+  select uri into :upd_url trimmed from resp.links where rel="updateContent";
+quit;
+
+%put &upd_url;
+
+* **************************************************************************************;
+* * Update the temporary report with the content of last state of original report;
+* **************************************************************************************;
+%let REST_QUERY_URI=&BASE_URI.&upd_url.;
+%put &REST_QUERY_URI;
+
+PROC HTTP METHOD = "PUT" oauth_bearer=sas_services OUT = resp IN = repJson
+      URL = "&REST_QUERY_URI";
+      HEADERS
+		"Accept" = "application/vnd.sas.error+json"
+		"Content-Type" = "application/vnd.sas.report.content+json";
+	debug level=3;
+RUN;
+
+curl -X PUT https://example.com/reports/reports/{reportId}/content \
+  -H 'Authorization: Bearer <access-token-goes-here>' \
+  -H 'Content-Type: application/vnd.sas.report.content+json' \
+  -H 'Accept: application/vnd.sas.error+json' \
+  -H 'If-Match: string' \
+  -H 'If-Unmodified-Since: string'
+
+*/
