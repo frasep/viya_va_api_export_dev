@@ -1,3 +1,8 @@
+%macro file_Delete(file);
+	filename __a "&file.";
+	%put %sysfunc(fdelete(__a));
+%mend file_delete;
+
 /* Parameter with report full name */
 
 %let REPORT_NAME=test_rapport_casuser;
@@ -172,7 +177,7 @@ proc http
   headers
     "Accept" = "application/vnd.sas.report.images.job+json"
   ;
-  debug level=3;
+  debug level=0;
 run;
 %put NOTE: &=SYS_PROCHTTP_STATUS_CODE;
 %put NOTE: &=SYS_PROCHTTP_STATUS_PHRASE;
@@ -378,14 +383,12 @@ proc http
   headers
     "Accept" = "application/vnd.sas.error+json"
   ;
-  debug level=3;
+  debug level=0;
 run;
 
-
-
-
-
-
+%file_delete(/home/frasep/reportContent.json);
+%file_delete(/home/frasep/reportContentTransform.json);
+%file_delete(/home/frasep/reportContentFinal.json);
 
 /*
 * **************************************************************************************;
