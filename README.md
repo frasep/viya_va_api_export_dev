@@ -11,4 +11,4 @@ There are two versions of tools tested :
 - librsvg2-tools library has been used. It must be installed as it is used to convert svg to png. The follwing version has been tested : librsvg2-tools.x86_64 0:2.40.20-1.el7
 
 
-!([viya35_cinematic_diagram.png](https://github.com/frasep/viya_va_api_export_dev/blob/main/viya35ppt_gen/viya35_cinematic_diagram.png)https://github.com/frasep/viya_va_api_export_dev/blob/main/viya35ppt_gen/viya35_cinematic_diagram.png)
+![viya35_cinematic_diagram.png](https://github.com/frasep/viya_va_api_export_dev/blob/main/viya35ppt_gen/viya35_cinematic_diagram.png)
