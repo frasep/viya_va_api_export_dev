@@ -11,4 +11,9 @@ There are two versions of tools tested :
 - librsvg2-tools library has been used. It must be installed as it is used to convert svg to png. The follwing version has been tested : librsvg2-tools.x86_64 0:2.40.20-1.el7
 
 
-![viya35_cinematic_diagram.png](https://github.com/frasep/viya_va_api_export_dev/blob/main/viya35ppt_gen/viya35_cinematic_diagram.png)
+![viya35_cinematic_diagram.png](./viya35ppt_gen/viya35_cinematic_diagram.png)
+
+
+## For SAS Viya 4 (tested of 2023.11 and later) (viya4ppt_gen subdirectory)
+
+With Viya 4 there is no need to go though an external tool to generate png as the Voya 4 API expose directly the png image endpoint for VA repoet or report object.
