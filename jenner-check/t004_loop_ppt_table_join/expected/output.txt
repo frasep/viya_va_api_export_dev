@@ -1,0 +1,7 @@
+
+  Obs   user  report_id                                                filename                          image_filename   job_id  sectionLabel  ordinal_images
+-----  -----  ---------  ------------------------------------------------------  --------------------------------------  -------  ------------  --------------
+    1  alice  rep_sales  /tmp/svg_va_tmp/alice/rep_sales/job_001/1_Overview.svg  alice_rep_sales_job_001_1_Overview.svg  job_001  Overview                   1
+    2  alice  rep_sales  /tmp/svg_va_tmp/alice/rep_sales/job_001/2_Regional.svg  alice_rep_sales_job_001_2_Regional.svg  job_001  Regional                   2
+
+

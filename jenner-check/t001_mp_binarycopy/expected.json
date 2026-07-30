@@ -1,0 +1,15 @@
+{
+  "_captured_at": "2026-07-30T20:40:00Z",
+  "_captured_run_id": "r_bc10c4443ba94528b5f938f514b290b9",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: Fileref ____IN assigned to source.txt.",
+    "NOTE: Fileref ____OUT assigned to copied_output.txt.",
+    "NOTE: Fileref ____IN cleared.",
+    "NOTE: Fileref ____OUT cleared.",
+    "NOTE: Reading from fileref copied_output.txt (copied_output.txt)"
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}

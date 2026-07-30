@@ -1,0 +1,7 @@
+{
+  "bundle": "t004_loop_ppt_table_join",
+  "source_file": "viya35ppt_gen/using librsvg2-tools/Filesystem based/002_job_viya35_admin_gen_ppt.sas",
+  "source_blob_sha": "aacc0bde66c8b9efcf5cc188f75cd3da895ecc18",
+  "source_commit": "bd519d80bd7ac625efeeecab9dc9a84e8b3941dc",
+  "notes": "The loop_ppt_table PROC SQL join + PROC SORT copied unmodified. img_info (normally REST/JSON-derived from the SAS Viya reportImages/jobs API) substituted with a small inline DATALINES table matching its (job_id, ordinal_images, sectionLabel) shape, so the join/sort logic that drives generate_ppt_file's per-slide worklist runs against real data instead of a live SAS Viya server."
+}
