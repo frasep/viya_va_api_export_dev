@@ -1,0 +1,59 @@
+NOTE: Option OBS changed to 100.
+NOTE: Fileref REP1JS assigned to rep1.json.
+NOTE: DATA _null_
+
+NOTE: Writing to fileref rep1js (/tmp/work/r_2abf5e0ecb384340be96fbe77a5ef8fa/rep1.json)
+NOTE: DATA _null_ completed. Output written to fileref rep1js (/tmp/work/r_2abf5e0ecb384340be96fbe77a5ef8fa/rep1.json)
+NOTE: Fileref REP2JS assigned to rep2.json.
+NOTE: DATA _null_
+
+NOTE: Writing to fileref rep2js (/tmp/work/r_2abf5e0ecb384340be96fbe77a5ef8fa/rep2.json)
+NOTE: DATA _null_ completed. Output written to fileref rep2js (/tmp/work/r_2abf5e0ecb384340be96fbe77a5ef8fa/rep2.json)
+NOTE: Fileref REP3JS assigned to rep3.json.
+NOTE: DATA _null_
+
+NOTE: Writing to fileref rep3js (/tmp/work/r_2abf5e0ecb384340be96fbe77a5ef8fa/rep3.json)
+NOTE: DATA _null_ completed. Output written to fileref rep3js (/tmp/work/r_2abf5e0ecb384340be96fbe77a5ef8fa/rep3.json)
+NOTE: PROC DATASETS library=WORK
+
+NOTE: Library R1 assigned path=./rep1.json.
+NOTE: DATA report_list_tmp
+
+
+NOTE: Read 1 rows from r1.root.
+NOTE: Wrote report_list_tmp (1 rows, 2 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC APPEND base=report_list_full data=report_list_tmp
+
+NOTE: BASE data set does not exist. Creating /tmp/work/r_2abf5e0ecb384340be96fbe77a5ef8fa/work/3256a202-443f-4c65-9005-234eaac16a6e/report_list_full.avro with 1 observations from DATA= dataset.
+NOTE: 1 observations added to /tmp/work/r_2abf5e0ecb384340be96fbe77a5ef8fa/work/3256a202-443f-4c65-9005-234eaac16a6e/report_list_full.avro.
+NOTE: Library R2 assigned path=./rep2.json.
+NOTE: DATA report_list_tmp
+
+
+NOTE: Read 1 rows from r2.root.
+NOTE: Wrote report_list_tmp (1 rows, 2 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC APPEND base=report_list_full data=report_list_tmp
+
+NOTE: Appended 1 rows.
+NOTE: Library R3 assigned path=./rep3.json.
+NOTE: DATA report_list_tmp
+
+
+NOTE: Read 1 rows from r3.root.
+NOTE: Wrote report_list_tmp (1 rows, 2 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC APPEND base=report_list_full data=report_list_tmp
+
+NOTE: Appended 1 rows.
+NOTE: PROC PRINT data=report_list_full
+
+NOTE: PROC PRINT completed: 3 observations printed, 2 variables
+

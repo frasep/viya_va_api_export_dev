@@ -1,0 +1,32 @@
+NOTE: Option OBS changed to 100.
+NOTE: DATA _null_
+
+NOTE: Writing to fileref source.txt (/tmp/work/r_bc10c4443ba94528b5f938f514b290b9/source.txt)
+NOTE: DATA _null_ completed. Output written to fileref source.txt (/tmp/work/r_bc10c4443ba94528b5f938f514b290b9/source.txt)
+NOTE: Fileref ____IN assigned to source.txt.
+NOTE: Fileref ____OUT assigned to copied_output.txt.
+NOTE: DATA _null_
+
+NOTE: Writing to fileref ____out (/tmp/work/r_bc10c4443ba94528b5f938f514b290b9/copied_output.txt)
+NOTE: Reading from fileref ____in (source.txt)
+
+NOTE: Read 100 rows from ____in.
+NOTE: Wrote _null_ (100 rows, 1 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: Fileref ____IN cleared.
+NOTE: Fileref ____OUT cleared.
+NOTE: DATA _null_
+
+NOTE: Reading from fileref copied_output.txt (copied_output.txt)
+Sample report export payload, line 1
+Sample report export payload, line 2
+Sample report export payloa
+
+NOTE: Read 3 rows from copied_output.txt.
+NOTE: Wrote _null_ (3 rows, 0 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+

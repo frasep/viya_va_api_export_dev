@@ -1,0 +1,19 @@
+                                                 one row per report/job
+
+
+  Obs      report_id   job_id
+-----  -------------  -------
+    1  rep_hr         job_003
+    2  rep_inventory  job_002
+    3  rep_sales      job_001
+
+                                              one row per report/user/job
+
+
+  Obs      report_id   user   job_id
+-----  -------------  -----  -------
+    1  rep_hr         carol  job_003
+    2  rep_inventory  bob    job_002
+    3  rep_sales      alice  job_001
+
+

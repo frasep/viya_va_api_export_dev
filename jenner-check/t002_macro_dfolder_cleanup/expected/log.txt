@@ -1,0 +1,119 @@
+NOTE: Option OBS changed to 100.
+NOTE: DATA _null_
+
+
+NOTE: Wrote _null_ (0 rows, 0 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+NOTE: Writing to fileref ./jobdirs_demo/job_a/1_SectionA.svg (/tmp/work/r_79d61bb656f840b386b1488a016c77b5/jobdirs_demo/job_a/1_SectionA.svg)
+NOTE: DATA _null_ completed. Output written to fileref ./jobdirs_demo/job_a/1_SectionA.svg (/tmp/work/r_79d61bb656f840b386b1488a016c77b5/jobdirs_demo/job_a/1_SectionA.svg)
+NOTE: DATA _null_
+
+NOTE: Writing to fileref ./jobdirs_demo/job_a/2_SectionB.svg (/tmp/work/r_79d61bb656f840b386b1488a016c77b5/jobdirs_demo/job_a/2_SectionB.svg)
+NOTE: DATA _null_ completed. Output written to fileref ./jobdirs_demo/job_a/2_SectionB.svg (/tmp/work/r_79d61bb656f840b386b1488a016c77b5/jobdirs_demo/job_a/2_SectionB.svg)
+NOTE: DATA _null_
+
+NOTE: Writing to fileref ./jobdirs_demo/job_b/1_SectionA.svg (/tmp/work/r_79d61bb656f840b386b1488a016c77b5/jobdirs_demo/job_b/1_SectionA.svg)
+NOTE: DATA _null_ completed. Output written to fileref ./jobdirs_demo/job_b/1_SectionA.svg (/tmp/work/r_79d61bb656f840b386b1488a016c77b5/jobdirs_demo/job_b/1_SectionA.svg)
+NOTE: DATA jobdirs
+
+
+NOTE: Wrote jobdirs (2 rows, 5 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC PRINT data=jobdirs
+
+NOTE: PROC PRINT completed: 2 observations printed, 5 variables
+NOTE: DATA _null_
+
+
+NOTE: Read 2 rows from jobdirs.
+NOTE: Wrote _null_ (2 rows, 5 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA flist
+
+
+NOTE: Wrote flist (2 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+
+NOTE: Read 2 rows from flist.
+NOTE: Wrote _null_ (2 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+RC=0 _ERROR_=0 _N_=1
+
+NOTE: Wrote _null_ (0 rows, 0 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+RC=0 _ERROR_=0 _N_=1
+
+NOTE: Wrote _null_ (0 rows, 0 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+RC=0 _ERROR_=0 _N_=1
+
+NOTE: Wrote _null_ (0 rows, 0 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA flist
+
+
+NOTE: Wrote flist (1 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+
+NOTE: Read 1 rows from flist.
+NOTE: Wrote _null_ (1 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+RC=0 _ERROR_=0 _N_=1
+
+NOTE: Wrote _null_ (0 rows, 0 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+RC=0 _ERROR_=0 _N_=1
+
+NOTE: Wrote _null_ (0 rows, 0 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA _null_
+
+job_a/1_SectionA.svg exists after cleanup (0=no): 0
+job_a/2_SectionB.svg exists after cleanup (0=no): 0
+job_b/1_SectionA.svg exists after cleanup (0=no): 0
+
+NOTE: Wrote _null_ (0 rows, 0 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+

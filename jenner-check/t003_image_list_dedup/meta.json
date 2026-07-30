@@ -1,0 +1,7 @@
+{
+  "bundle": "t003_image_list_dedup",
+  "source_file": "viya35ppt_gen/using librsvg2-tools/Filesystem based/002_job_viya35_admin_gen_ppt.sas",
+  "source_blob_sha": "aacc0bde66c8b9efcf5cc188f75cd3da895ecc18",
+  "source_commit": "bd519d80bd7ac625efeeecab9dc9a84e8b3941dc",
+  "notes": "The image_list scan + report/job + report/user/job dedup logic (SCAN/TRANWRD/TRANSLATE parsing, PROC SORT, first.report_id DOW-loop dedup) copied unmodified. The source script builds image_list from a piped 'find ... -name *.svg' shell command; substituted with an inline DATALINES list of 5 synthetic .svg paths across 3 users/reports/jobs, since the parsing and dedup logic is independent of how the path list is obtained."
+}
