@@ -75,7 +75,12 @@ quit;
 %let pptpath=&v_home;
 %let width=2880px;
 %let height=1620px;
-%let fullpptfilename="&pptpath./&REPORT_NAME..pptx";
+
+%let cleanstr = %sysfunc(transtrn(&REPORT_NAME, /, _));
+%let cleanstr = %sysfunc(transtrn(&cleanstr, :, _));
+%let cleanstr = %sysfunc(transtrn(&cleanstr, %str( ), _));
+
+%let fullpptfilename="&pptpath./&cleanstr..pptx";
 
 %put reportId       : # &reportId #;
 %put reportName     : # &REPORT_NAME #;
@@ -88,7 +93,7 @@ quit;
 /******************************************************************/
 
 %macro export_va_report_png(report_id, out_png, rep_obj, width, height);
-   %let theurl = &base_uri./visualAnalytics/reports/&report_Id/png?reportObject=&rep_obj.%nrstr(&size)=&width,&height;
+   %let theurl = &base_uri./visualAnalytics/reports/&report_Id/png?reportObject=&rep_obj.%nrstr(&)size=&width,&height;
    filename imgfile "&pptpath./&out_png";
    proc http
       url = "&theurl"
@@ -162,7 +167,7 @@ run;
 	run;
 
 	/*DBG ods html5 exclude all;*/
-	ods powerpoint file=%sysfunc(quote(%superq(fullpptfilename)));
+	ods powerpoint file=%sysfunc(quote(&fullpptfilename));
  	%inc ppt / source2;
 	ods powerpoint close;
 %mend generate_ppt_file;
