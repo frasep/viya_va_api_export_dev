@@ -1,0 +1,7 @@
+                                          job directories found before cleanup
+
+  Obs  rc  did  n_obs  i                 dname
+    1   0    1      2  1  ./jobdirs_demo/job_a
+    2   0    1      2  2  ./jobdirs_demo/job_b
+
+

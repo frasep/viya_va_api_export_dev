@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_mp_binarycopy",
+  "source_file": "viya35ppt_gen/using librsvg2-tools/Filesystem based/002_job_viya35_admin_gen_ppt.sas",
+  "source_blob_sha": "aacc0bde66c8b9efcf5cc188f75cd3da895ecc18",
+  "source_commit": "bd519d80bd7ac625efeeecab9dc9a84e8b3941dc",
+  "notes": "mp_binarycopy() macro copied unmodified; it is a generic byte-for-byte file-copy utility (used in the repo to push a generated .pptx to SAS Content via a filesrvc fileref) with no dependency on the SAS Viya REST API. Ran against a small sample text file written inline by the script itself (source.txt) instead of the repo's live filesrvc destination -- pure path substitution, no logic changed."
+}

@@ -1,0 +1,12 @@
+{
+  "_captured_at": "2026-07-30T20:45:00Z",
+  "_captured_run_id": "r_2abf5e0ecb384340be96fbe77a5ef8fa",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: PROC APPEND base=report_list_full data=report_list_tmp",
+    "NOTE: PROC PRINT completed: 3 observations printed, 2 variables"
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}

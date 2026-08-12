@@ -1,0 +1,45 @@
+NOTE: Option OBS changed to 100.
+NOTE: DATA image_list
+
+NOTE: Processing inline DATALINES (5 lines)
+
+NOTE: Read 5 rows from DATALINES.
+NOTE: Wrote image_list (5 rows, 6 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SORT data=image_list
+
+NOTE: Read 5 rows from image_list.
+NOTE: Wrote image_list (5 rows, 6 columns).
+NOTE: PROC SORT statement used.
+NOTE: DATA report_list
+
+
+NOTE: Read 5 rows from image_list.
+NOTE: Wrote report_list (3 rows, 2 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SORT data=image_list
+
+NOTE: Read 5 rows from image_list.
+NOTE: Wrote image_list (5 rows, 6 columns).
+NOTE: PROC SORT statement used.
+NOTE: DATA report_user_list_tmp
+
+
+NOTE: Read 5 rows from image_list.
+NOTE: Wrote report_user_list_tmp (3 rows, 3 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: Option TITLE changed to one row per report/job.
+NOTE: PROC PRINT data=report_list
+
+NOTE: PROC PRINT completed: 3 observations printed, 2 variables
+NOTE: Option TITLE changed to one row per report/user/job.
+NOTE: PROC PRINT data=report_user_list_tmp
+
+NOTE: PROC PRINT completed: 3 observations printed, 3 variables
+

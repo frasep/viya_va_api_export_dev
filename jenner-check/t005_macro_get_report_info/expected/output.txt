@@ -1,0 +1,8 @@
+                                         reports resolved via get_report_info()
+
+  Obs          report_id                 name
+    1  rep_sales_001      Sales_Report
+    2  rep_inventory_002  Inventory_Report
+    3  rep_hr_003         HR_Attrition_Report
+
+

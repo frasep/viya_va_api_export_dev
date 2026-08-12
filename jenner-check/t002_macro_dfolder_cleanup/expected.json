@@ -1,0 +1,13 @@
+{
+  "_captured_at": "2026-07-30T20:20:00Z",
+  "_captured_run_id": "r_79d61bb656f840b386b1488a016c77b5",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "job_a/1_SectionA.svg exists after cleanup (0=no): 0",
+    "job_a/2_SectionB.svg exists after cleanup (0=no): 0",
+    "job_b/1_SectionA.svg exists after cleanup (0=no): 0"
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}

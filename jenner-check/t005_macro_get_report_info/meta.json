@@ -1,0 +1,7 @@
+{
+  "bundle": "t005_macro_get_report_info",
+  "source_file": "viya35ppt_gen/using librsvg2-tools/Filesystem based/002_job_viya35_admin_gen_ppt.sas",
+  "source_blob_sha": "aacc0bde66c8b9efcf5cc188f75cd3da895ecc18",
+  "source_commit": "bd519d80bd7ac625efeeecab9dc9a84e8b3941dc",
+  "notes": "get_report_info() macro's JSON-parsing (libname ... json;, DATA step SET, KEEP) + PROC APPEND accumulation logic copied unmodified across 3 calls. The macro's PROC HTTP GET against the SAS Viya REST API is substituted with 3 small mock JSON payloads written inline by the script (standing in for captured API responses). Each call uses a distinct libref (r1/r2/r3) rather than reassigning one shared libref repeatedly, since reassigning an already-used JSON libname to a different file was found not to pick up the new content -- everything else about the macro (its parsing/keep/append body) is unchanged."
+}
