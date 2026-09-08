@@ -2,6 +2,9 @@
 /* Get the current user last saved report in the same day                                                        */
 /* in the &rep_id and &REPORT_NAME and &modtime output macro variables                                           */
 /*****************************************************************************************************************/
+/* VYE : Add a main flag to stop the process if there's no report today for the user instead of using endsas */
+%global stop_flag;
+%let stop_flag=0;
 
 %let v_home=%sysget(HOME);
 %put &=v_home;
@@ -34,32 +37,39 @@ LIBNAME rptFile json;
 data _null_;
     if 0 then set rptFile.items nobs=n;
     if n=0 then do;
-        put "No saved report for user &USER_ID";
-        call execute('endsas;');
+        put "NOTE: No saved report for user &USER_ID";
+        /* VYE : Replaced endsas with stop_flag */
+        /* call execute('endsas;'); */
+        call execute('%let stop_flag=1;');
     end;
     stop;
 run;
 
-/* Get only report saved during the current date */
-proc sql;
-    select count(*) into :n_report trimmed from rptFile.items where
-        input(substr(ModifiedTimeStamp,1,10), yymmdd10.) >= today() ;
-quit;
-%put Dbg &=&n_report.;
+%if &stop_flag=0 %then %do;
+    /* Get only report saved during the current date */
+    proc sql;
+        select count(*) into :n_report trimmed from rptFile.items where
+            input(substr(ModifiedTimeStamp,1,10), yymmdd10.) >= today() ;
+    quit;
+    %put Dbg &=&n_report.;
 
-/* Stop if no recent report save occurred */
-data TB_DBG /*_null_*/;
-    if &n_report=0 then do;
-        put
-            "**********************************************************************************";
-        put "No saved report today for user &USER_ID";
-        put
-            "**********************************************************************************";
-        call execute('endsas;');
-    end;
-    stop;
-run;
+    /* Stop if no recent report save occurred */
+    data TB_DBG /*_null_*/;
+        if &n_report=0 then do;
+            put
+                "**********************************************************************************";
+            put "NOTE: No saved report today for user &USER_ID";
+            put
+                "**********************************************************************************";
+            /* VYE : Replaced endsas with stop_flag */
+            /* call execute('endsas;'); */
+            call execute('%let stop_flag=1;');
+        end;
+        stop;
+    run;
+%end;
 
+%macro process_report;
 proc sql noprint;
     select id into :rep_id trimmed from rptFile.items;
 quit;
@@ -84,7 +94,8 @@ quit;
 
 %put reportId       : # &reportId #;
 %put reportName     : # &REPORT_NAME #;
-%put _pptfilename   : # &_pptfilename #;
+/* VYE : Removed the next line because &_pptfilename is not defined. */
+/* %put _pptfilename   : # &_pptfilename #; */
 %put pptpath        : # &pptpath #;
 %put fullpptfilename: # &fullpptfilename #;
 
@@ -93,13 +104,18 @@ quit;
 /******************************************************************/
 
 %macro export_va_report_png(report_id, out_png, rep_obj, width, height);
-   %let theurl = &base_uri./visualAnalytics/reports/&report_Id/png?reportObject=&rep_obj.%nrstr(&)size=&width,&height;
+    /* VYE : Removed the next line because of warnings with %nrstr(&)size that is not a macro. Using instead query= from PROC HTTP */
+   /* %let theurl = &base_uri./visualAnalytics/reports/&report_Id/png?reportObject=&rep_obj.%nrstr(&)size=&width,&height; */
    filename imgfile "&pptpath./&out_png";
    proc http
-      url = "&theurl"
+      /* VYE : Replaced the next line with the root url link */
+      /* url = "&theurl" */
+      url = "&base_uri./visualAnalytics/reports/&report_Id/png"
       method = "GET"
       oauth_bearer = sas_services
-      out = imgfile;
+      out = imgfile
+      /* VYE : Added query= parameters */
+      query=("reportObject"="&rep_obj" "size"="&width,&height");
       headers
          "Accept" = "image/png, application/json, application/vnd.sas.error+json, application/json";
    run;
@@ -144,10 +160,11 @@ data _null_;
 run;
 
 %macro print_images(filename, titl,folder);
-	/*title "&titl" ;*//**/
+	/* title "&titl" ;*//* */
 	data _NULL_;
 	 	dcl odsout obj();
-		obj.image(file:"&folder/&filename..png", height:"1080", width:"1920");
+        /* VYE : Changed height and width to 100% instead of 1080*1920 */
+		obj.image(file:"&folder/&filename..png", height:"100%", width:"100%");
 	run;
 %mend;
 
@@ -173,3 +190,9 @@ run;
 %mend generate_ppt_file;
 
 %generate_ppt_file(reportId);
+
+/* VYE : Add a %process_report macro, launch only if stop_flag=0 (a report from today is found for the user) */
+%mend process_report;
+%if &stop_flag=0 %then %do;
+%process_report;
+%end;
